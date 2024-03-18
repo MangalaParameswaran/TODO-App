@@ -132,7 +132,7 @@ const App = () => {
                 updateForm(item._id)
               ) : (
                 <>
-                  <p className="item-content bg">{item.item}</p>
+                  <p className="item-content bg" style={{fontWeight:'bolder'}}>{item.item}</p>
                   <button
                     className="update-item bg"
                     onClick={() => {
