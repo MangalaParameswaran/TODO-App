@@ -15,9 +15,9 @@ const App = () => {
         item: itemText,
       });
       // console.log(res.data);
-      // setListItems((prev) => [...prev, res.data]);
+      setListItems((prev) => [...prev, res.data]);
       setItemText("");
-      window.location.reload()
+      // window.location.reload()
       if (res.data.success) {
         message.success(res.data.message);
       }
