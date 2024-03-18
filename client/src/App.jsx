@@ -103,7 +103,7 @@ const App = () => {
 
   return (
     <div className="app bg">
-      <h1>Todo List</h1>
+      <h1 className="fs-1">Todo List</h1>
       <hr style={{color:'black'}}/>
       <form className="form bg" onSubmit={submitForm}>
         <input
