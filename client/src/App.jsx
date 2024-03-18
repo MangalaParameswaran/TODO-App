@@ -118,29 +118,34 @@ const App = () => {
         </button>
       </form>
       <div className="todo-listItems bg">
-        {listItems.map((item) => (
-          <div className="todo-item bg" style={{ textAlign: "center" }} key={item._id}>
-            {isUpdating === item._id ? (
-              updateForm(item._id)
-            ) : (
-              <>
-                <p className="item-content bg">{item.item}</p>
-                <button
-                  className="update-item bg"
-                  onClick={() => {
-                    setIsUpdating(item._id);
-                  }}
-                >
-                  Edit
-                </button>
-                <button className="delete-item bg" onClick={() => deleteItem(item._id)}>
-                  Delete
-                </button>
-              </>
-            )}
-          </div>
-        ))}
+  {listItems.length > 0 ? (
+    listItems.map((item) => (
+      <div className="todo-item bg" style={{ textAlign: "center" }} key={item._id}>
+        {isUpdating === item._id ? (
+          updateForm(item._id)
+        ) : (
+          <>
+            <p className="item-content bg">{item.item}</p>
+            <button
+              className="update-item bg"
+              onClick={() => {
+                setIsUpdating(item._id);
+              }}
+            >
+              Edit
+            </button>
+            <button className="delete-item bg" onClick={() => deleteItem(item._id)}>
+              Delete
+            </button>
+          </>
+        )}
       </div>
+    ))
+  ) : (
+    <p>No items available</p>
+  )}
+</div>
+
     </div>
   );
 };
