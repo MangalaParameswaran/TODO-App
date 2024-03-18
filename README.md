@@ -1,6 +1,6 @@
-🚀 Excited to share my latest project!
+<h3>🚀 Excited to share my latest project!</h3>
 
-📝 <h1>Todo App </h1> with React, Node.js, MongoDB, and Mongoose
+ <h1>Todo App </h1> with React, Node.js, MongoDB, and Mongoose
 
 I'm thrilled to unveil my latest project, a Todo application built with cutting-edge technologies like React, Node.js, MongoDB, and Mongoose. This fully functional web application allows users to manage their tasks efficiently with an intuitive user interface and seamless interaction.
 
@@ -21,5 +21,5 @@ client: Contains the frontend codebase developed with React.js.
 server: Houses the backend codebase implemented with Node.js and Express.js.
 🚀 Deployment:
 
-Frontend: https://todo-app-f9kv.vercel.app/
+Frontend: https://todo-app-f9kv.vercel.app/ &nbsp; &nbsp; &nbsp;
 Backend: https://todo-app-cqjm.onrender.com
