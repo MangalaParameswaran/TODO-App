@@ -62,24 +62,48 @@ const getDataController=async(req,res)=>{
 }
 
 //EDIT DATA
-const editDataController=async(req,res)=>{
-    try {
-        let updateItem= await todoModel.findByIdAndUpdate(req.params.id, {$set: req.body})
+// const editDataController=async(req,res)=>{
+//     try {
+//         let updateItem= await todoModel.findByIdAndUpdate(req.params.id, {$set: req.body})
 
-        res.status(200).send({
-            success:true,
-            message:"Successfully Edited your Todo Data",
-            data:updateItem
-        })
+//         res.status(200).send({
+//             success:true,
+//             message:"Successfully Edited your Todo Data",
+//             data:updateItem
+//         })
         
+//     } catch (error) {
+//         console.log(error);
+//         res.status(500).send({
+//             success:false,
+//             message:"Internel Server error"
+//         })
+//     }
+// }
+const editDataController = async (req, res) => {
+    try {
+      const { oldItem, newItem } = req.body;
+  
+      let updateItem = await todoModel.findByIdAndUpdate(
+        req.params.id,
+        { item: newItem },
+        { new: true }
+      );
+  
+      res.status(200).send({
+        success: true,
+        message: "Successfully Edited your Todo Data",
+        data: updateItem,
+      });
     } catch (error) {
-        console.log(error);
-        res.status(500).send({
-            success:false,
-            message:"Internel Server error"
-        })
+      console.log(error);
+      res.status(500).send({
+        success: false,
+        message: "Internal Server error",
+      });
     }
-}
+  };
+  
 
 //DELETE DATA
 const deleteDataController=async(req,res)=>{

@@ -5,19 +5,17 @@ import { message } from "antd";
 const App = () => {
   const [itemText, setItemText] = useState("");
   const [listItems, setListItems] = useState([]);
-  // console.log(listItems);
   const [isUpdating, setIsUpdating] = useState("");
+  const [oldItemData, setOldItemData] = useState(null); // State to hold old item data
 
   const submitForm = async (e) => {
     e.preventDefault();
     try {
-      let res = await axios.post("https://todo-app-cqjm.onrender.com/api/add", {
+      let res = await axios.post("http://localhost:5500/api/add", {
         item: itemText,
       });
-      // console.log(res.data);
       setListItems((prev) => [...prev, res.data]);
       setItemText("");
-      // window.location.reload()
       if (res.data.success) {
         message.success(res.data.message);
       }
@@ -29,7 +27,7 @@ const App = () => {
 
   const getItemList = async () => {
     try {
-      let res = await axios.get("https://todo-app-cqjm.onrender.com/get-data");
+      let res = await axios.get("http://localhost:5500/get-data");
       setListItems(res.data.data);
       if (res.data.success) {
         message.success(res.data.message);
@@ -42,8 +40,9 @@ const App = () => {
 
   const updateItem = async (id, newItem) => {
     try {
-      let res = await axios.put(`https://todo-app-cqjm.onrender.com/edit-data/${id}`, {
-        item: newItem,
+      let res = await axios.put(`http://localhost:5500/edit-data/${id}`, {
+        oldItem: oldItemData, // Pass the old item data
+        newItem: newItem,
       });
       setListItems((prevItems) =>
         prevItems.map((item) =>
@@ -62,7 +61,7 @@ const App = () => {
 
   const deleteItem = async (id) => {
     try {
-      let res = await axios.delete(`https://todo-app-cqjm.onrender.com/delete-data/${id}`);
+      let res = await axios.delete(`http://localhost:5500/delete-data/${id}`);
       setListItems((prevItems) =>
         prevItems.filter((item) => item._id !== id)
       );
@@ -79,29 +78,9 @@ const App = () => {
     getItemList();
   }, []);
 
-  const updateForm = (id) => {
-    return (
-      <form
-        className="update-form"
-        style={{display:'flex',flexDirection:'row',justifyContent:'center', alignItems:'center', textAlign:'center'}}
-        onSubmit={(e) => {
-          e.preventDefault();
-          const newItem = e.target.elements.newItem.value;
-          updateItem(id, newItem);
-        }}
-      >
-        <input
-          className="update-new-input"
-          type="text"
-          placeholder="New Item"
-          name="newItem"
-          style={{textAlign:"center", padding:"1em", borderRadius:'1em', border:'none', outline:'none'}}
-        />
-        <button className="update-new-btn" type="submit" style={{backgroundColor:'green', borderRadius:'.5em'}}>
-          Update
-        </button>
-      </form>
-    );
+  const startUpdate = (id, oldItem) => {
+    setIsUpdating(id); // Set the item ID being updated
+    setOldItemData(oldItem); // Store the old item data
   };
 
   return (
@@ -121,30 +100,43 @@ const App = () => {
         </button>
       </form>
       <div className="todo-listItems bg">
-        {listItems && listItems.length > 0 ? (
+        {listItems.length > 0 ? (
           listItems.map((item) => (
-            <div
-              className="todo-item bg"
-              style={{ textAlign: "center" }}
-              key={item._id}
-            >
+            <div className="todo-item bg" style={{ textAlign: "center" }} key={item._id}>
               {isUpdating === item._id ? (
-                updateForm(item._id)
+                <form
+                  className="update-form"
+                  style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center', textAlign: 'center' }}
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                    const newItem = e.target.elements.newItem.value;
+                    updateItem(item._id, newItem);
+                  }}
+                >
+                  <input
+                    className="update-new-input"
+                    type="text"
+                    placeholder="New Item"
+                    name="newItem"
+                    defaultValue={oldItemData.item} // Set default value to old item data
+                    style={{ textAlign: "center", padding: "1em", borderRadius: '1em', border: 'none', outline: 'none' }}
+                  />
+                  <button className="update-new-btn" type="submit" style={{ backgroundColor: 'green', borderRadius: '.5em' }}>
+                    Update
+                  </button>
+                </form>
               ) : (
                 <>
-                  <p className="item-content bg" style={{fontWeight:'bolder'}}>{item.item}</p>
+                  <p className="item-content bg">{item.item}</p>
                   <button
                     className="update-item bg"
                     onClick={() => {
-                      setIsUpdating(item._id);
+                      startUpdate(item._id, item); // Start update with old data
                     }}
                   >
                     Edit
                   </button>
-                  <button
-                    className="delete-item bg"
-                    onClick={() => deleteItem(item._id)}
-                  >
+                  <button className="delete-item bg" onClick={() => deleteItem(item._id)}>
                     Delete
                   </button>
                 </>
