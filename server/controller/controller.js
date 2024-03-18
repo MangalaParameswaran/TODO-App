@@ -1,25 +1,45 @@
 import todoModel from "../models/todoSchema.js";
 
 //ADD DATA
-const creatController=async(req,res)=>{
-    try {
-        // console.log("hello");
-        // let date=req.body
-        // console.log(date);
-        let itemAdd= await todoModel.create(req.body)
-        // console.log('itemAdd',itemAdd);
-        // let saveItem=await itemAdd.save()
+// const creatController=async(req,res)=>{
+//     try {
+//         // console.log("hello");
+//         // let date=req.body
+//         // console.log(date);
+//         let itemAdd= await todoModel.create(req.body)
+//         // console.log('itemAdd',itemAdd);
+//         // let saveItem=await itemAdd.save()
 
-        res.status(200).json(itemAdd)
+//         res.status(200).json(itemAdd)
         
+//     } catch (error) {
+//         console.log(error);
+//         res.status(500).send({
+//             success:false,
+//             message:"Internel Server error"
+//         })
+//     }
+// }
+const creatController = async (req, res) => {
+    try {
+      if (!req.body.item) {
+        return res.status(400).json({
+          success: false,
+          message: "Please provide a valid todo item",
+        });
+      }
+  
+      let itemAdd = await todoModel.create(req.body);
+      res.status(200).json(itemAdd);
     } catch (error) {
-        console.log(error);
-        res.status(500).send({
-            success:false,
-            message:"Internel Server error"
-        })
+      console.log(error);
+      res.status(500).send({
+        success: false,
+        message: "Internal Server error",
+      });
     }
-}
+  };
+  
 
 //GET DATA
 const getDataController=async(req,res)=>{

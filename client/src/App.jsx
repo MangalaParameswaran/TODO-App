@@ -5,6 +5,7 @@ import { message } from "antd";
 const App = () => {
   const [itemText, setItemText] = useState("");
   const [listItems, setListItems] = useState([]);
+  // console.log(listItems);
   const [isUpdating, setIsUpdating] = useState("");
 
   const submitForm = async (e) => {
@@ -13,8 +14,10 @@ const App = () => {
       let res = await axios.post("https://todo-app-cqjm.onrender.com/api/add", {
         item: itemText,
       });
-      setListItems((prev) => [...prev, res.data]);
+      // console.log(res.data);
+      // setListItems((prev) => [...prev, res.data]);
       setItemText("");
+      window.location.reload()
       if (res.data.success) {
         message.success(res.data.message);
       }
@@ -104,7 +107,7 @@ const App = () => {
   return (
     <div className="app bg">
       <h1 className="fs-1">Todo List</h1>
-      <hr style={{color:'black'}}/>
+      <hr style={{ color: "black" }} />
       <form className="form bg" onSubmit={submitForm}>
         <input
           type="text"
@@ -118,34 +121,40 @@ const App = () => {
         </button>
       </form>
       <div className="todo-listItems bg">
-  {listItems.length > 0 ? (
-    listItems.map((item) => (
-      <div className="todo-item bg" style={{ textAlign: "center" }} key={item._id}>
-        {isUpdating === item._id ? (
-          updateForm(item._id)
-        ) : (
-          <>
-            <p className="item-content bg">{item.item}</p>
-            <button
-              className="update-item bg"
-              onClick={() => {
-                setIsUpdating(item._id);
-              }}
+        {listItems && listItems.length > 0 ? (
+          listItems.map((item) => (
+            <div
+              className="todo-item bg"
+              style={{ textAlign: "center" }}
+              key={item._id}
             >
-              Edit
-            </button>
-            <button className="delete-item bg" onClick={() => deleteItem(item._id)}>
-              Delete
-            </button>
-          </>
+              {isUpdating === item._id ? (
+                updateForm(item._id)
+              ) : (
+                <>
+                  <p className="item-content bg">{item.item}</p>
+                  <button
+                    className="update-item bg"
+                    onClick={() => {
+                      setIsUpdating(item._id);
+                    }}
+                  >
+                    Edit
+                  </button>
+                  <button
+                    className="delete-item bg"
+                    onClick={() => deleteItem(item._id)}
+                  >
+                    Delete
+                  </button>
+                </>
+              )}
+            </div>
+          ))
+        ) : (
+          <p>No items available</p>
         )}
       </div>
-    ))
-  ) : (
-    <p>No items available</p>
-  )}
-</div>
-
     </div>
   );
 };
