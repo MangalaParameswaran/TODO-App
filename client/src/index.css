@@ -1,0 +1,99 @@
+*{
+  /* background-color: grey; */
+}
+.app{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #fff;
+  margin: 50px auto;
+  width: 400px;
+  padding: 3em;
+  box-shadow: -5px -5px 10px grey,
+  5px 5px 10px grey;
+  border: 1px solid grey;
+  border-radius: 1em;
+}
+
+.app h1{
+  text-align: center;
+  background-color: #fff;
+
+}
+.bg{
+  background-color: #fff;
+}
+
+.form{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 1em;
+}
+
+.form input{
+  padding: 10px;
+  width: 50%;
+  text-align: center;
+  border :1px solid grey;
+  border-radius: .5em;
+}
+
+.form button[type="submit"]{
+  background-color: #008080;
+  color: #fff;
+  border: none ;
+  border-radius: .5em;
+  padding: 12px;
+  cursor: pointer;
+  font-weight: bolder;
+}
+
+.todo-listItems{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+.todo-item{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  border: 1px solid grey;
+  padding: .5em;
+  margin-top: .5em;
+  border-radius: 1em;
+}
+.todo-item button{
+  border: none;
+  border-radius: .5em;
+  cursor: pointer;
+  padding: .7em;
+  font-weight: bold;
+
+}
+.item-content{
+  width: 60%;
+}
+.update-item{
+background-color: goldenrod;
+
+}
+.delete-item{
+background-color: red;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
