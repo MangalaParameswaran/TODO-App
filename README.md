@@ -21,5 +21,5 @@ client: Contains the frontend codebase developed with React.js.
 server: Houses the backend codebase implemented with Node.js and Express.js.
 🚀 Deployment:
 
-Frontend: https://todo-app-f9kv.vercel.app/
+Frontend: https://todo-app-f9kv.vercel.app/ &nbsp; &nbsp; &nbsp;
 Backend: https://todo-app-cqjm.onrender.com
