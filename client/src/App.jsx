@@ -11,7 +11,7 @@ const App = () => {
   const submitForm = async (e) => {
     e.preventDefault();
     try {
-      let res = await axios.post("http://localhost:5500/api/add", {
+      let res = await axios.post("https://todo-app-cqjm.onrender.com/api/add", {
         item: itemText,
       });
       setListItems((prev) => [...prev, res.data]);
