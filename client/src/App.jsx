@@ -27,7 +27,7 @@ const App = () => {
 
   const getItemList = async () => {
     try {
-      let res = await axios.get("http://localhost:5500/get-data");
+      let res = await axios.get("https://todo-app-cqjm.onrender.com/get-data");
       setListItems(res.data.data);
       if (res.data.success) {
         message.success(res.data.message);
@@ -40,7 +40,7 @@ const App = () => {
 
   const updateItem = async (id, newItem) => {
     try {
-      let res = await axios.put(`http://localhost:5500/edit-data/${id}`, {
+      let res = await axios.put(`https://todo-app-cqjm.onrender.com/edit-data/${id}`, {
         oldItem: oldItemData, // Pass the old item data
         newItem: newItem,
       });
@@ -61,7 +61,7 @@ const App = () => {
 
   const deleteItem = async (id) => {
     try {
-      let res = await axios.delete(`http://localhost:5500/delete-data/${id}`);
+      let res = await axios.delete(`https://todo-app-cqjm.onrender.com/delete-data/${id}`);
       setListItems((prevItems) =>
         prevItems.filter((item) => item._id !== id)
       );
